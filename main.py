@@ -86,7 +86,10 @@ def busiest_hours(df):
     df = df.sort_values('hour')
     print(df['hour'])
     # plt.plot(df['hour'].unique(), np.bincount(df['hour']))
-    plt.plot(df['hour'].unique(), df['hour'].value_counts())
+    plt.plot(df['hour'].unique(), df['hour'].value_counts(), color='orange')
+    plt.title('Busiest Hours at Restaurant')
+    plt.xlabel('Hour of the day (24-hour time)')
+    plt.ylabel('Number of tables cleaned')
     plt.show()
     
 def busiest_days(df):
@@ -123,10 +126,10 @@ def run():
     df = initialzie_and_clean()
     
     # Produce average response visual
-    # average_response_time(df)
+    average_response_time(df)
     
     # Produce the busiest hours visual
-    # busiest_hours(df)
+    busiest_hours(df)
     
     # Produce the busiest days visual
     busiest_days(df)
