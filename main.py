@@ -89,15 +89,47 @@ def busiest_hours(df):
     plt.plot(df['hour'].unique(), df['hour'].value_counts())
     plt.show()
     
-
+def busiest_days(df):
+    '''Display which days have the most traffic in the restaurant
+    
+    Args:
+        df: The dataframe used to generate a graph
+        
+    Returns:
+        void
+    '''
+    df = df.sort_values('dirtied_datetime')
+    df['day'] = df['dirtied_datetime'].dt.day
+    tablesPerDay = df['day'].value_counts().array
+    
+    # Set up data for graph
+    daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
+    tablesCleaned = [tablesPerDay[3], tablesPerDay[4], tablesPerDay[5], tablesPerDay[6], tablesPerDay[0], tablesPerDay[1], tablesPerDay[2]]
+    
+    # Display the bar graph
+    plt.bar(daysOfWeek, tablesCleaned, color='grey', edgecolor='blue')
+   
+    # Add labels to the axises
+    plt.xlabel('Day of the week')
+    plt.ylabel('Number of tables cleaned')
+    plt.yticks(np.linspace(1., 30., 10))
+    plt.title('Tables Cleaned on the Week of July 1, 2022')
+    
+    # Show the graph
+    plt.show()
     
 def run():
     # Initialize and store the dataframe in the variable df
     df = initialzie_and_clean()
+    
     # Produce average response visual
     # average_response_time(df)
+    
     # Produce the busiest hours visual
-    busiest_hours(df)
+    # busiest_hours(df)
+    
+    # Produce the busiest days visual
+    busiest_days(df)
 
 if __name__ == "__main__":
     run()
