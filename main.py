@@ -72,12 +72,32 @@ def average_response_time(df):
     # Show the graph
     plt.show()
     
+def busiest_hours(df):
+    '''Display which hours have the most amount of tables being dirtied per hour
+    
+    Args:
+        df: The dataframe used to generate a graph
+        
+    Returns:
+        void
+    '''
+    # Get the hour the table was dirtied
+    df['hour'] = df['dirtied_datetime'].dt.hour
+    df = df.sort_values('hour')
+    print(df['hour'])
+    # plt.plot(df['hour'].unique(), np.bincount(df['hour']))
+    plt.plot(df['hour'].unique(), df['hour'].value_counts())
+    plt.show()
+    
+
     
 def run():
     # Initialize and store the dataframe in the variable df
     df = initialzie_and_clean()
-    # Produce first visual
-    average_response_time(df)
+    # Produce average response visual
+    # average_response_time(df)
+    # Produce the busiest hours visual
+    busiest_hours(df)
 
 if __name__ == "__main__":
     run()
